@@ -20,3 +20,15 @@ func (s *ProjectService) GetProjects(
 ) ([]model.Project, error) {
 	return s.repository.GetProjects(ctx, locale)
 }
+
+func (s *ProjectService) GetProjectBySlug(
+	ctx context.Context,
+	slug string,
+	locale string,
+) (*model.ProjectDetail, error) {
+	return s.repository.GetProjectBySlug(
+		ctx,
+		slug,
+		locale,
+	)
+}

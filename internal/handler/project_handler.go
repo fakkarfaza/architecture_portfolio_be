@@ -34,3 +34,26 @@ func (h *ProjectHandler) GetProjects(c *gin.Context) {
 		"data":   projects,
 	})
 }
+
+func (h *ProjectHandler) GetProjectBySlug(c *gin.Context) {
+	slug := c.Param("slug")
+	locale := c.DefaultQuery("locale", "en")
+
+	project, err := h.service.GetProjectBySlug(
+		c.Request.Context(),
+		slug,
+		locale,
+	)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status":  "error",
+			"message": "Project not found",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status": "success",
+		"data":   project,
+	})
+}
